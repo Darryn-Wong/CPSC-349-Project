@@ -1,0 +1,143 @@
+.page-home {
+
+  .map,
+  .map-base {
+    height: 50vh;
+  }
+
+  main {
+    padding: 0;
+  }
+
+  .popup-gatsby {
+    display: flex;
+    width: 36em;
+    padding: 1em;
+    border-radius: 1em;
+  }
+
+  .popup-gatsby-image {
+    display: flex;
+    align-items: center;
+    margin-right: 2em;
+  }
+
+  .popup-gatsby-content {
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    text-align: left;
+    padding-right: 1em;
+
+    h1 {
+      margin: 0 0 .2em;
+    }
+
+    p {
+      margin: 0 0 .5em;
+    }
+
+  }
+
+  .gatsby-astronaut {
+
+    overflow: hidden;
+    width: 10em;
+    height: 10em;
+    background-color: $gatsby-purple;
+    border-radius: 100%;
+    border: solid 6px $gatsby-purple;
+    margin: 0;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+  }
+
+}
+
+.home-start {
+  padding-top: 4em;
+  padding-bottom: 4em;
+
+  h2 {
+    margin-top: 0;
+  }
+
+  p {
+    margin-bottom: 1.2em;
+  }
+
+  pre {
+    margin-bottom: 1.5em;
+  }
+
+}
+
+#left-container {
+  float: left;
+  width: 20%;
+  height: 601px;
+}
+
+#left-container input {
+  width: 100%;
+}
+
+#myInput {
+  // background-image: url('/css/searchicon.png');
+  /* Add a search icon to input */
+  background-position: 10px 12px;
+  /* Position the search icon */
+  background-repeat: no-repeat;
+  /* Do not repeat the icon image */
+  width: 100%;
+  /* Full-width */
+  font-size: 16px;
+  /* Increase font-size */
+  padding: 12px 20px 12px 40px;
+  /* Add some padding */
+  border: 1px solid #ddd;
+  /* Add a grey border */
+  margin-bottom: 12px;
+  /* Add some space below the input */
+}
+
+#myUL {
+  /* Remove default list styling */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+  height: 50%;
+  border-bottom: 1px solid silver;
+}
+
+#myUL li a {
+  border: 1px solid #ddd;
+  /* Add a border to all links */
+  margin-top: -1px;
+  /* Prevent double borders */
+  background-color: #f6f6f6;
+  /* Grey background color */
+  padding: 12px;
+  /* Add some padding */
+  text-decoration: none;
+  /* Remove default text underline */
+  font-size: 18px;
+  /* Increase the font-size */
+  color: black;
+  /* Add a black text color */
+  display: block;
+  /* Make it into a block element to fill the whole list */
+}
+
+#myUL li a:hover:not(.header) {
+  background-color: #eee;
+  /* Add a hover effect to all links, except for headers */
+}
