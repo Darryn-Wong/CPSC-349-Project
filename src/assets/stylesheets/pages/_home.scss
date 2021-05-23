@@ -2,7 +2,7 @@
 
   .map,
   .map-base {
-    height: 50vh;
+    height: 57vh;
   }
 
   main {
@@ -80,9 +80,11 @@
 }
 
 #left-container {
+  background-color: $blue-grey-900;
+  color: #ddd;
   float: left;
   width: 20%;
-  height: 601px;
+  height: 100%;
 }
 
 #left-container input {
@@ -114,7 +116,7 @@
   padding: 0;
   margin: 0;
   overflow: auto;
-  height: 50%;
+  height: 53.8vh;
   border-bottom: 1px solid silver;
 }
 
@@ -140,4 +142,15 @@
 #myUL li a:hover:not(.header) {
   background-color: #eee;
   /* Add a hover effect to all links, except for headers */
+}
+
+#vaccine {
+  h5 {
+    text-align: center;
+
+  }
+
+  h6 {
+    text-align: center;
+  }
 }

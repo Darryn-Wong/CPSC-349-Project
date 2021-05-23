@@ -1,8 +1,8 @@
 {
   "name": "my-coronavirus-map",
-  "description": "Demo repo for blog post",
+  "description": "",
   "version": "0.2.0",
-  "author": "Colby Fayock <hello@colbyfayock.com>",
+  "author": "",
   "dependencies": {
     "axios": "^0.21.1",
     "gatsby": "^2.21.33",
@@ -18,7 +18,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0",
-    "react-leaflet": "^2.7.0"
+    "react-leaflet": "^2.7.0",
+    "use-global-hook": "^0.2.3"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
@@ -68,7 +69,7 @@
   "homepage": "https://my-coronavirus-map.netlify.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/colbyfayock/my-coronavirus-map"
+    "url": "https://github.com/Darryn-Wong/CPSC-349-Project"
   },
   "bugs": {
     "url": "https://github.com/colbyfayock/my-coronavirus-map/issues"

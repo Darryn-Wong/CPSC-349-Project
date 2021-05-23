@@ -7,12 +7,8 @@ const Header = () => {
   return (
     <header>
       <Container type="content">
-        <p>COVID Dashboard</p>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-        </ul>
+        <p id='title'>COVID Dashboard</p>
+
       </Container>
     </header>
   );

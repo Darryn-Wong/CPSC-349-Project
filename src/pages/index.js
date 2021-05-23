@@ -10,107 +10,92 @@ import Container from 'components/Container';
 import Map from 'components/Map';
 
 const LOCATION = {
-  lat: 0,
-  lng: 0,
+  lat: 60,
+  lng: 10,
 };
 const CENTER = [LOCATION.lat, LOCATION.lng];
 const DEFAULT_ZOOM = 2;
 var globalMap = {};
-// console.log(StatsInit());
-// function StatsInit() {
-//   var apiUrl = 'https://corona.lmao.ninja/v2/countries';
-//   fetch(apiUrl).then(response => {
-//     return response.json();
-//   }).then(data => {
-//     // console.log(data)
-//     return (<li><a href="#">Adele</a></li>)
-//     // return ()
-//   }).catch(err => {
-//   });
-// }
+var globalVaccine = {};
 
-function liItem(data) {
-  // console.log(data)
-  function click() { }
-  return (
-    <ul id="myUL">
-      <input type="text" id="myInput" onKeyUp={() => {
-        // search function goes here
-      }} placeholder="Search for names.."></input>
-      {data.map((item, index) => {
-        return (
-          <li key={index}>
-            <a href="#" onClick={() => {
-              console.log(item.countryInfo.lat)
-              globalMap.setView([item.countryInfo.lat + 20, item.countryInfo.long], 3);
-              console.log(Map)
-            }
-            }>{item.country}</a>
-          </li>
-        )
-      })}
-    </ul>
-  )
-}
-
-function ParentThatFetches() {
-  const [data, updateData] = useState();
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    setLoading(true);
-    const getData = async () => {
-      const resp = await fetch('https://corona.lmao.ninja/v2/countries');
-      const json = await resp.json()
-      updateData(json);
-      setLoading(false);
-    }
-    getData();
-  }, []);
-
-  // return data && liItem(data)
-  return data && liItem(data)
-
-  // return (
-  //   <div>
-  //     { loading ? (<div>Loading...</div>) :
-  //       (
-  //         <div>
-  //           {data.map((datas, index) => {
-  //             return (
-  //               <div key={index}>
-  //                 <h1>{datas}</h1>
-  //               </div>
-  //             )
-  //           })}
-  //         </div>
-
-  //       )
-  //     }
-  //   </div>
-  // )
-}
 
 const IndexPage = () => {
+  const [countryName, setCountryName] = useState("Select Country");
+  const [vaccinations, setVaccinations] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const [countryList, setCountryList] = useState();
-  // counter based on num of total items.
-  let [loading, setLoading] = useState(false);
+  const handleChange = event => {
+    setSearchTerm(event.target.value);
+  };
 
-  useEffect(() => {
-    setLoading(true);
-    const fetchCountries = async () => {
-      var apiUrl = 'https://corona.lmao.ninja/v2/countries';
-      fetch(apiUrl).then(response => {
-        // const resp = fetch(apiUrl);
-        // const json = resp.json();
-        // setCountryList(json);
-        // console.log(countryList);
-      }).catch(err => {
-      });
-    }
+  function liItem(data, data2, searchTerm) {
+    const results = !searchTerm
+      ? data
+      : data.filter(data =>
+        data.country.toLowerCase().startsWith(searchTerm.toLocaleLowerCase())
+      );
+    var curState = 'USA'
+    // console.log(data)
+    function click() { }
+    return (
+      <>
+        <ul id="myUL">
+          {results.map((item, index) => {
+            return (
+              <li key={index}>
+                <a href="#" onClick={() => {
+                  globalMap.flyTo([item.countryInfo.lat + 3, item.countryInfo.long], 6)
+                  { setVaccinations(vaccineInjection(item.country, data2)) }
+                  { setCountryName(item.country) }
+                }
+                }>{item.country}</a>
+              </li>
+            )
+          })}
+        </ul>
+      </>
+    )
+  };
+  //obj[Object.keys(obj)[0]];
+  function vaccineInjection(country, data2) {
+    var a = 0;
+    const results = !country ? ''
+      : data2.filter(data2 =>
+        data2.country.toLowerCase().includes(country.toLocaleLowerCase())
+      );
+    const result = results[0].timeline;
+    const keyw = result[Object.keys(result)[0]]
+    return (
+      <div id='vacc'>
+        <h1>{keyw}</h1>
+      </div>
+    )
+  }
 
-    //fetchCountries();
-  }, []);
+  // const [vaccine, setVaccine] = useState();
+  // const [curState, setCurState] = useState();
+  function ParentThatFetches(searchTerm) {
+    const [data, updateData] = useState();
+    const [data2, setData2] = useState();
+    useEffect(() => {
+      const getData = async () => {
+        const resp = await fetch('https://corona.lmao.ninja/v2/countries');
+        const json = await resp.json()
+
+        const resp2 = await fetch('https://disease.sh/v3/covid-19/vaccine/coverage/countries?lastdays=1')
+        const json2 = await resp2.json()
+
+        updateData(json)
+
+        setData2(json2);
+        console.log(data2)
+      }
+      getData();
+    }, []);
+
+    // return data && liItem(data)
+    return data && liItem(data, data2, searchTerm)
+  }
 
   const { data: stats = {} } = useTracker({
     api: 'all',
@@ -288,14 +273,18 @@ const IndexPage = () => {
         <title>Home Page</title>
       </Helmet>
       <div id='left-container'>
-        {/* <input type="text" id="myInput" onKeyUp="filterFunction()" placeholder="Search for names.."></input> */}
-        {/* {countryStats.map((data) => {
-          console.log(data.country);
-          return (
-            <li><a href="#">${data.country}</a></li>
-          );
-        })} */}
-        {ParentThatFetches()}
+        <input
+          type="text"
+          placeholder="Search"
+          value={searchTerm}
+          onChange={handleChange}
+        />
+        {ParentThatFetches(searchTerm)}
+        <div id='vaccine'>
+          <h5>Vaccinations by Country</h5>
+          <h6>{countryName}</h6>
+          <h6>{vaccinations}</h6>
+        </div>
       </div>
       <div className="tracker">
         <Map {...mapSettings} />
